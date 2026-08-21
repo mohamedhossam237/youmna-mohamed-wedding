@@ -1,8 +1,40 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-export default function WishesBoard({ wishes = [] }) {
-  // Format dates to a readable Arabic format
+export default function WishesBoard({ newWish }) {
+  const [wishes, setWishes] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch all wishes from MongoDB when the board mounts
+  useEffect(() => {
+    async function fetchWishes() {
+      setLoading(true);
+      try {
+        const res = await fetch("/api/rsvp", { cache: "no-store" });
+        if (res.ok) {
+          const data = await res.json();
+          setWishes(data);
+        }
+      } catch (err) {
+        console.error("Error fetching wishes:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchWishes();
+  }, []); // Runs once when this component mounts (i.e. when slide 3 is visible)
+
+  // When a new wish is submitted, prepend it instantly without re-fetching
+  useEffect(() => {
+    if (newWish) {
+      setWishes((prev) => {
+        // Avoid duplicates if already in list
+        if (prev.some((w) => w.id === newWish.id)) return prev;
+        return [newWish, ...prev];
+      });
+    }
+  }, [newWish]);
+
   const formatDate = (dateString) => {
     try {
       const date = new Date(dateString);
@@ -21,6 +53,16 @@ export default function WishesBoard({ wishes = [] }) {
 
   const filteredWishes = wishes.filter((w) => w.message && w.message.trim() !== "");
 
+  if (loading) {
+    return (
+      <div className="no-wishes">
+        <p style={{ color: "var(--accent-gold)", animation: "pulse 1.5s infinite" }}>
+          ✨ جاري تحميل التهاني...
+        </p>
+      </div>
+    );
+  }
+
   if (filteredWishes.length === 0) {
     return (
       <div className="no-wishes">
@@ -35,7 +77,7 @@ export default function WishesBoard({ wishes = [] }) {
   return (
     <div className="wishes-board">
       {filteredWishes.map((wish, index) => {
-        const colorClass = `card-${index % 5}`; // Rotates between 0 to 4
+        const colorClass = `card-${index % 5}`;
         return (
           <div key={wish.id || index} className={`wish-card ${colorClass}`}>
             <div className="wish-header">

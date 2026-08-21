@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import Image from "next/image";
 import PetalsCanvas from "@/components/PetalsCanvas";
 import MusicPlayer from "@/components/MusicPlayer";
@@ -11,7 +11,7 @@ import WishesBoard from "@/components/WishesBoard";
 export default function Home() {
   const [isOpened, setIsOpened] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [wishes, setWishes] = useState([]);
+  const [newWish, setNewWish] = useState(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const [photoTilt, setPhotoTilt] = useState({ x: 0, y: 0 });
   const slidesContainerRef = useRef(null);
@@ -27,42 +27,14 @@ export default function Home() {
     setPhotoTilt({ x: 0, y: 0 });
   };
 
-  // Fetch wishes from MongoDB — re-run on mount, when envelope opens, and when slide 3 becomes active
-  const fetchWishes = React.useCallback(async () => {
-    try {
-      const res = await fetch("/api/rsvp", { cache: "no-store" });
-      if (res.ok) {
-        const data = await res.json();
-        setWishes(data);
-      }
-    } catch (err) {
-      console.error("Error fetching wishes:", err);
-    }
-  }, []);
-
-  // Fetch on initial mount
-  useEffect(() => {
-    fetchWishes();
-  }, [fetchWishes]);
-
-  // Re-fetch every time the envelope opens
-  useEffect(() => {
-    if (isOpened) fetchWishes();
-  }, [isOpened, fetchWishes]);
-
-  // Re-fetch when the user scrolls to slide 3 (wishes board)
-  useEffect(() => {
-    if (activeSlide === 2) fetchWishes();
-  }, [activeSlide, fetchWishes]);
-
   const openEnvelope = () => {
     setIsOpened(true);
     setIsPlaying(true); // Automatically starts background audio on envelope open
   };
 
-  const handleNewRsvp = (newRsvp) => {
-    // Instantly append new wishes to the guestbook without page refresh
-    setWishes((prev) => [newRsvp, ...prev]);
+  const handleNewRsvp = (rsvp) => {
+    // Pass the new wish to WishesBoard so it shows instantly
+    setNewWish(rsvp);
   };
 
   // Scroll tracking to update pagination dot status
@@ -467,7 +439,7 @@ export default function Home() {
                   >
                     كلمات تفيض بالحب والتهاني
                   </h3>
-                  <WishesBoard wishes={wishes} />
+                  <WishesBoard newWish={newWish} />
                 </div>
               </div>
 
