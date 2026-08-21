@@ -90,7 +90,11 @@ export default function Home() {
       <PetalsCanvas />
 
       {/* 3. Sealed 3D Envelope Opening Screen */}
-      <Envelope isOpened={isOpened} onOpen={openEnvelope} />
+      <Envelope
+        isOpened={isOpened}
+        onStartOpen={() => setIsPlaying(true)}
+        onCompleteOpen={() => setIsOpened(true)}
+      />
 
       {/* 4. Floating Music Player */}
       <MusicPlayer isPlaying={isPlaying} setIsPlaying={setIsPlaying} />

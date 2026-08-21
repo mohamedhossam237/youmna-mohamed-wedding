@@ -1,19 +1,16 @@
 "use client";
 import React, { useState } from "react";
 
-export default function Envelope({ isOpened, onOpen }) {
+export default function Envelope({ isOpened, onStartOpen, onCompleteOpen }) {
   const [isOpenClicked, setIsOpenClicked] = useState(false);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e) => {
     if (isOpenClicked) return;
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    // Rotate max 10 degrees for a subtle elegant tilt
-    const tiltX = (x / (rect.width / 2)) * 10;
-    const tiltY = -(y / (rect.height / 2)) * 10;
-    setTilt({ x: tiltX, y: tiltY });
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setTilt({ x: x * 20, y: y * -20 }); // Max 20deg tilt
   };
 
   const handleMouseLeave = () => {
@@ -28,9 +25,16 @@ export default function Envelope({ isOpened, onOpen }) {
     
     setIsOpenClicked(true);
     setTilt({ x: 0, y: 0 }); // Reset tilt
+    
+    if (onStartOpen) {
+      onStartOpen();
+    }
+    
     // Sequence delays: flap opens, card rises, then screen fades out
     setTimeout(() => {
-      onOpen();
+      if (onCompleteOpen) {
+        onCompleteOpen();
+      }
     }, 2200);
   };
 
