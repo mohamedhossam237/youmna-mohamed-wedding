@@ -1629,3 +1629,153 @@ html, body {
     transform: rotate(360deg);
   }
 }
+
+/* ===================================================
+   RESPONSIVE MOBILE OVERRIDES FOR HEADER & COUNTDOWN
+   =================================================== */
+
+/* Responsive Arched couple photo frame */
+.arch-frame-container.landscape-arch {
+  width: 320px;
+  height: 240px;
+  border-radius: 160px 160px 24px 24px;
+}
+
+.arch-inner-border.landscape-inner-border {
+  border-radius: 154px 154px 20px 20px;
+}
+
+@media (max-width: 480px) {
+  .arch-frame-container.landscape-arch {
+    width: 250px;
+    height: 188px; /* 4:3 Aspect Ratio */
+    border-radius: 125px 125px 16px 16px;
+  }
+
+  .arch-inner-border.landscape-inner-border {
+    border-radius: 119px 119px 12px 12px;
+  }
+}
+
+@media (max-width: 360px) {
+  .arch-frame-container.landscape-arch {
+    width: 220px;
+    height: 165px;
+    border-radius: 110px 110px 14px 14px;
+  }
+
+  .arch-inner-border.landscape-inner-border {
+    border-radius: 104px 104px 10px 10px;
+  }
+}
+
+/* Swirl ornaments responsive layout */
+.slide-header-swirl {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.3;
+  transition: var(--transition-smooth);
+}
+
+.slide-header-swirl.left-swirl {
+  left: 8%;
+  transform: translateY(-50%) scaleX(-1);
+}
+
+.slide-header-swirl.right-swirl {
+  right: 8%;
+}
+
+@media (max-width: 480px) {
+  .slide-header-swirl {
+    width: 35px !important;
+    height: 50px !important;
+  }
+  .slide-header-swirl.left-swirl {
+    left: 2%;
+  }
+  .slide-header-swirl.right-swirl {
+    right: 2%;
+  }
+}
+
+/* Responsive Calligraphy & Typography on Mobile */
+@media (max-width: 480px) {
+  .responsive-names {
+    font-size: 26px !important;
+  }
+  
+  .responsive-rings-svg {
+    width: 28px !important;
+    height: 17px !important;
+  }
+  
+  .responsive-verse-text {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+  }
+
+  .responsive-intro-text {
+    font-size: 12px !important;
+    line-height: 1.65 !important;
+    padding: 0 5px;
+  }
+}
+
+@media (max-width: 360px) {
+  .responsive-names {
+    font-size: 22px !important;
+  }
+  
+  .responsive-rings-svg {
+    width: 24px !important;
+    height: 15px !important;
+  }
+}
+
+/* Responsive Countdown squares */
+@media (max-width: 480px) {
+  .countdown-container {
+    gap: 8px !important;
+    margin: 18px auto !important;
+    width: 100% !important;
+    max-width: 310px !important;
+  }
+
+  .countdown-item {
+    width: 60px !important;
+    height: 68px !important;
+    border-radius: 10px !important;
+  }
+
+  .countdown-val {
+    font-size: 20px !important;
+  }
+
+  .countdown-label {
+    font-size: 10px !important;
+    margin-top: 4px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .countdown-container {
+    gap: 6px !important;
+    max-width: 270px !important;
+  }
+
+  .countdown-item {
+    width: 52px !important;
+    height: 60px !important;
+  }
+
+  .countdown-val {
+    font-size: 18px !important;
+  }
+
+  .countdown-label {
+    font-size: 9px !important;
+  }
+}
+

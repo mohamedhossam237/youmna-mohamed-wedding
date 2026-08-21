@@ -126,25 +126,22 @@ export default function Home() {
               {/* Header block with gold arched window & swirls */}
               <div className="slide-header-block">
                 {/* Left Swirl */}
-                <svg width="50" height="70" viewBox="0 0 100 100" fill="none" style={{ position: "absolute", left: "10%", opacity: 0.3, transform: "scaleX(-1)" }}>
+                <svg width="50" height="70" viewBox="0 0 100 100" fill="none" className="slide-header-swirl left-swirl">
                   <path d="M10 80C40 80 70 60 80 30C82 20 70 10 60 20C50 30 60 50 80 50C90 50 100 40 100 30" stroke="var(--accent-gold)" strokeWidth="2.5" strokeLinecap="round" />
                 </svg>
 
                 {/* Arched couple photo */}
                 <div style={{ animation: "floatCard 6s infinite ease-in-out", zIndex: 5 }}>
                   <div
-                    className="arch-frame-container"
+                    className="arch-frame-container landscape-arch"
                     style={{
-                      width: "320px",
-                      height: "240px",
-                      borderRadius: "160px 160px 24px 24px",
                       transform: `perspective(1000px) rotateX(${photoTilt.y}deg) rotateY(${photoTilt.x}deg)`,
                       transition: "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
                     }}
                     onMouseMove={handlePhotoMouseMove}
                     onMouseLeave={handlePhotoMouseLeave}
                   >
-                    <div className="arch-inner-border" style={{ borderRadius: "154px 154px 20px 20px" }} />
+                    <div className="arch-inner-border landscape-inner-border" />
                     <Image
                       src="/couple.png"
                       alt="Youmna and Mohamed"
@@ -157,7 +154,7 @@ export default function Home() {
                 </div>
 
                 {/* Right Swirl */}
-                <svg width="50" height="70" viewBox="0 0 100 100" fill="none" style={{ position: "absolute", right: "10%", opacity: 0.3 }}>
+                <svg width="50" height="70" viewBox="0 0 100 100" fill="none" className="slide-header-swirl right-swirl">
                   <path d="M10 80C40 80 70 60 80 30C82 20 70 10 60 20C50 30 60 50 80 50C90 50 100 40 100 30" stroke="var(--accent-gold)" strokeWidth="2.5" strokeLinecap="round" />
                 </svg>
               </div>
@@ -176,6 +173,7 @@ export default function Home() {
                 </span>
 
                 <h2
+                  className="responsive-verse-text"
                   style={{
                     fontFamily: "var(--font-amiri)",
                     fontSize: "15px",
@@ -194,7 +192,7 @@ export default function Home() {
                 </div>
 
                 <h1
-                  className="calligraphy-title"
+                  className="calligraphy-title responsive-names"
                   style={{
                     fontSize: "36px",
                     color: "var(--white)",
@@ -210,6 +208,7 @@ export default function Home() {
                       viewBox="0 0 60 36"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
+                      className="responsive-rings-svg"
                     >
                       <circle cx="22" cy="18" r="15" stroke="url(#goldGradient4)" strokeWidth="3.5" />
                       <circle cx="38" cy="18" r="15" stroke="url(#goldGradient4)" strokeWidth="3.5" />
@@ -226,6 +225,7 @@ export default function Home() {
                 </h1>
 
                 <p
+                  className="responsive-intro-text"
                   style={{
                     fontSize: "14px",
                     lineHeight: "1.8",
