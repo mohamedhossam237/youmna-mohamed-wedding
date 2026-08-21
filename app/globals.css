@@ -1330,48 +1330,11 @@ html, body {
 
 .wb-cards-grid {
   width: 100%;
-  max-height: 380px;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch; /* Momentum scrolling on iOS */
-  overscroll-behavior: contain; /* Prevent scrolling parent card while scrolling the wishes list */
   padding: 8px 4px 12px 4px;
   display: flex;
   flex-direction: column;
   gap: 14px;
   direction: rtl;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(121, 101, 184, 0.25) transparent;
-}
-
-/* Responsive height adjustment to prevent breaking layouts on mobile screens */
-@media (max-height: 740px) {
-  .wb-cards-grid {
-    max-height: 240px;
-  }
-}
-
-@media (min-height: 741px) and (max-height: 850px) {
-  .wb-cards-grid {
-    max-height: 310px;
-  }
-}
-
-.wb-cards-grid::-webkit-scrollbar {
-  width: 6px;
-}
-
-.wb-cards-grid::-webkit-scrollbar-track {
-  background: rgba(121, 101, 184, 0.03);
-  border-radius: 10px;
-}
-
-.wb-cards-grid::-webkit-scrollbar-thumb {
-  background: rgba(121, 101, 184, 0.25);
-  border-radius: 10px;
-}
-
-.wb-cards-grid::-webkit-scrollbar-thumb:hover {
-  background: rgba(121, 101, 184, 0.45);
 }
 
 .wb-card {
