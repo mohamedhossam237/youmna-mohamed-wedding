@@ -494,7 +494,7 @@ html, body {
   background: #ffffff;
   border: 1px solid rgba(229, 193, 107, 0.25);
   border-radius: 12px;
-  z-index: 2;
+  z-index: 2.5;
   transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s;
   padding: 30px;
   display: flex;
@@ -526,7 +526,7 @@ html, body {
 
 .envelope-container-3d.open .envelope-card-3d {
   transform: translateY(-180px) scale(1.05);
-  z-index: 4;
+  z-index: 2.5; /* Keeps the card sandwiched inside the bottom fold pocket! */
 }
 
 @media (max-width: 480px) {
