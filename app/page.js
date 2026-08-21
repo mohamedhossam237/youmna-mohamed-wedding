@@ -347,7 +347,7 @@ export default function Home() {
                   </div>
                   <div className="details-text-container" style={{ flexGrow: 1 }}>
                     <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>مكان الاحتفال</span>
-                    <span style={{ fontSize: "15px", fontWeight: "700" }}>قاعة Cove Hall الفاخرة</span>
+                    <span style={{ fontSize: "15px", fontWeight: "700" }}>قاعة Cove</span>
                     <a
                       href="https://www.google.com/maps/search/%D8%A7%D9%84%D9%85%D9%86%D8%B5%D9%88%D8%B1%D8%A9%20%D9%85%D8%B1%D9%83%D8%B2%20%D8%B1%D9%88%D9%8A%D8%A7%D9%84%20%D9%84%D9%84%D8%AE%D8%B5%D9%88%D8%A8%D8%A9%20%D9%88%20%D8%A7%D9%84%D8%B9%D9%82%D9%85%D8%8C%20%D8%A8%D8%A7%D9%84%D9%85%D8%B1%D9%83%D8%B2%20%D8%A7%D9%84%D8%B7%D8%A8%D9%89%20%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A%20%D8%A7%D9%84%D8%AF%D9%88%D8%B1%20%D8%A7%D9%84%D8%B3%D8%A7%D8%A8%D8%B9%20%D9%88%20%D8%A7%D9%84%D8%AF%D8%A7%D9%85%D9%86%D8%8C%20%D8%A7%D9%85%D8%AA%D8%AF%D8%A7%D8%AF%20%D8%A7%D9%84%D9%85%D8%B4%D8%A7%D9%8A%D8%A9%20%D8%A7%D9%84%D8%B3%D9%81%D9%84%D9%8A%D8%A9%D8%8C%20Mit%20Badr%20Khamees%2C%20El%20Mansoura%2C%20Dakahlia%20Governorate%207630817%2C%20Egypt/@31.0407,31.3358,17z?hl=en"
                       target="_blank"
