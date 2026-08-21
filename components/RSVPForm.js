@@ -15,6 +15,10 @@ export default function RSVPForm({ onRsvpSuccess }) {
       setErrorMsg("الرجاء كتابة الاسم الكريم لتسجيل دعوتكم.");
       return;
     }
+    if (!message.trim()) {
+      setErrorMsg("الرجاء كتابة تهنئة أو كلمة طيبة للعروسين.");
+      return;
+    }
     setErrorMsg("");
     setSubmitting(true);
 
@@ -106,7 +110,7 @@ export default function RSVPForm({ onRsvpSuccess }) {
 
       <div className="form-group">
         <label className="form-label" htmlFor="guest-message">
-          كلمة طيبة أو تهنئة للعروسين
+          كلمة طيبة أو تهنئة للعروسين (مطلوب)
         </label>
         <textarea
           id="guest-message"
@@ -115,6 +119,7 @@ export default function RSVPForm({ onRsvpSuccess }) {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           disabled={submitting}
+          required
         />
       </div>
 

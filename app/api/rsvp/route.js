@@ -45,11 +45,18 @@ export async function POST(request) {
       );
     }
 
+    if (!message || message.trim() === "") {
+      return NextResponse.json(
+        { error: "الرجاء كتابة تهنئة أو كلمة طيبة للعروسين" },
+        { status: 400 }
+      );
+    }
+
     const newRsvp = {
       name: name.trim(),
       attending: attending === undefined ? true : !!attending,
       guestsCount: attending ? Math.max(1, parseInt(guestsCount, 10) || 1) : 0,
-      message: message ? message.trim() : "",
+      message: message.trim(),
       timestamp: new Date().toISOString(),
     };
 

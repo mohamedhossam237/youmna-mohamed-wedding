@@ -109,10 +109,10 @@ export default function WishesBoard({ newWish }) {
               <div className="wb-footer">
                 <div className="wb-author">
                   <div className="wb-avatar" style={{ background: accent.glow, borderColor: accent.border }}>
-                    {wish.name.charAt(0)}
+                    {(wish.name || "ضيف كريم").charAt(0)}
                   </div>
                   <div className="wb-author-info">
-                    <span className="wb-author-name">{wish.name}</span>
+                    <span className="wb-author-name">{wish.name || "ضيف كريم"}</span>
                     <span className="wb-author-date">{formatDate(wish.timestamp)}</span>
                   </div>
                 </div>
