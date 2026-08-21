@@ -248,12 +248,14 @@ export default function Envelope({ isOpened, onStartOpen, onCompleteOpen }) {
                 bottom: "-75px",
                 width: "100%",
                 textAlign: "center",
-                fontSize: "14px",
-                color: "var(--accent-gold-light)",
+                fontSize: "16px",
+                color: "#d4af37", // Rich metallic gold
                 fontFamily: "var(--font-ruqaa)",
-                opacity: 0.85,
+                fontWeight: "bold",
+                opacity: 1,
                 pointerEvents: "none",
                 letterSpacing: "0.5px",
+                textShadow: "0px 1px 2px rgba(0, 0, 0, 0.1)",
               }}
             >
               إهداء من صديقة عمرك: عايدة سامح 🤍
