@@ -426,73 +426,56 @@ html, body {
   align-items: center;
 }
 
-/* Triangle folds back side with realistic drop-shadows */
-.envelope-3d::before {
-  content: "";
+/* Envelope Folds: Real HTML Folds in Uniform Luxury Pink Gradient */
+.envelope-fold-left,
+.envelope-fold-right,
+.envelope-fold-bottom,
+.envelope-flap-3d {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-left: 210px solid transparent;
-  border-right: 210px solid transparent;
-  border-bottom: 140px solid var(--palette-sage);
-  border-radius: 0 0 16px 16px;
-  z-index: 3;
-  filter: drop-shadow(0 -4px 6px rgba(0, 0, 0, 0.06));
+  background: linear-gradient(135deg, #fdf1f5 0%, #fad0e0 50%, #f9adc8 100%);
+  pointer-events: none;
 }
 
-.envelope-3d::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
+.envelope-fold-left {
   left: 0;
-  width: 0;
-  height: 0;
-  border-left: 210px solid var(--palette-blue);
-  border-right: 210px solid var(--palette-blue);
-  border-top: 140px solid transparent;
-  border-bottom: 140px solid transparent;
-  border-radius: 0 0 16px 16px;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
   z-index: 2;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
+  filter: drop-shadow(4px 0 5px rgba(44, 37, 59, 0.04));
 }
 
-@media (max-width: 480px) {
-  .envelope-3d::before {
-    border-left-width: 160px;
-    border-right-width: 160px;
-    border-bottom-width: 110px;
-  }
-  .envelope-3d::after {
-    border-left-width: 160px;
-    border-right-width: 160px;
-    border-top-width: 110px;
-    border-bottom-width: 110px;
-  }
+.envelope-fold-right {
+  right: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  clip-path: polygon(100% 0%, 0% 50%, 100% 100%);
+  z-index: 2;
+  filter: drop-shadow(-4px 0 5px rgba(44, 37, 59, 0.04));
+}
+
+.envelope-fold-bottom {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50%;
+  clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+  z-index: 3;
+  filter: drop-shadow(0 -5px 8px rgba(44, 37, 59, 0.06));
 }
 
 .envelope-flap-3d {
-  position: absolute;
-  top: 0;
   left: 0;
-  width: 0;
-  height: 0;
-  border-left: 210px solid transparent;
-  border-right: 210px solid transparent;
-  border-top: 140px solid var(--palette-peach);
+  top: 0;
+  width: 100%;
+  height: 50%;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
   transform-origin: top;
   z-index: 5;
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), z-index 0.2s 0.3s;
-  filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.1));
-}
-
-@media (max-width: 480px) {
-  .envelope-flap-3d {
-    border-left-width: 160px;
-    border-right-width: 160px;
-    border-top-width: 110px;
-  }
+  filter: drop-shadow(0 6px 10px rgba(44, 37, 59, 0.12));
 }
 
 .envelope-container-3d.open .envelope-flap-3d {

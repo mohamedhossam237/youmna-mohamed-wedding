@@ -124,12 +124,38 @@ export default function Envelope({ isOpened, onStartOpen, onCompleteOpen }) {
               : "transform 0.1s ease-out",
           }}
         >
+          {/* Left Fold with Gold dashed border */}
+          <div className="envelope-fold-left">
+            <svg width="100%" height="100%" viewBox="0 0 100 200" preserveAspectRatio="none" style={{ position: "absolute", top: 0, left: 0, pointerEvents: "none" }}>
+              <polyline points="1,1 98,100 1,199" fill="none" stroke="var(--accent-gold)" strokeWidth="1.5" strokeDasharray="3 3" />
+            </svg>
+          </div>
+
+          {/* Right Fold with Gold dashed border */}
+          <div className="envelope-fold-right">
+            <svg width="100%" height="100%" viewBox="0 0 100 200" preserveAspectRatio="none" style={{ position: "absolute", top: 0, left: 0, pointerEvents: "none" }}>
+              <polyline points="99,1 2,100 99,199" fill="none" stroke="var(--accent-gold)" strokeWidth="1.5" strokeDasharray="3 3" />
+            </svg>
+          </div>
+
+          {/* Bottom Fold with Gold dashed border */}
+          <div className="envelope-fold-bottom">
+            <svg width="100%" height="100%" viewBox="0 0 200 100" preserveAspectRatio="none" style={{ position: "absolute", top: 0, left: 0, pointerEvents: "none" }}>
+              <polyline points="2,98 100,2 198,98" fill="none" stroke="var(--accent-gold)" strokeWidth="1.5" strokeDasharray="3 3" />
+            </svg>
+          </div>
+
+          {/* Top flap folding open with Gold dashed border */}
+          <div className="envelope-flap-3d">
+            <svg width="100%" height="100%" viewBox="0 0 200 100" preserveAspectRatio="none" style={{ position: "absolute", top: 0, left: 0, pointerEvents: "none" }}>
+              <polyline points="2,2 100,98 198,2" fill="none" stroke="var(--accent-gold)" strokeWidth="1.5" strokeDasharray="3 3" />
+              <polyline points="5,2 100,93 195,2" fill="none" stroke="var(--accent-gold-light)" strokeWidth="0.8" />
+            </svg>
+          </div>
+
           {/* Internal corner ornaments */}
           <div className="envelope-bg-ornament top-left" />
           <div className="envelope-bg-ornament bottom-right" />
-
-          {/* Top flap folding open */}
-          <div className="envelope-flap-3d" />
 
           {/* Inner card sliding up */}
           <div className="envelope-card-3d">
