@@ -80,6 +80,8 @@ export default function Home() {
         <div className="aurora-blob blob-2" />
         <div className="aurora-blob blob-3" />
         <div className="aurora-blob blob-4" />
+        <div className="aurora-blob blob-5" />
+        <div className="aurora-blob blob-6" />
       </div>
 
       {/* 2. Hidden Animated Golden Names Calligraphy */}
@@ -98,15 +100,25 @@ export default function Home() {
       {/* 4. Floating Music Player */}
       <MusicPlayer isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
 
-      {/* 5. Navigation Dots (4 slides total) */}
+      {/* 5. Navigation Dots (4 slides total, each dot representing a palette color) */}
       {isOpened && (
         <div className="pagination-dots">
-          {[0, 1, 2, 3].map((idx) => (
+          {[
+            { color: "var(--palette-pink)", label: slideTitles[0] },
+            { color: "var(--palette-blue)", label: slideTitles[1] },
+            { color: "var(--palette-lavender)", label: slideTitles[2] },
+            { color: "var(--palette-sage)", label: slideTitles[3] }
+          ].map((dot, idx) => (
             <div
               key={idx}
               className={`pagination-dot ${activeSlide === idx ? "active" : ""}`}
+              style={{
+                borderColor: dot.color,
+                backgroundColor: activeSlide === idx ? dot.color : "rgba(44, 37, 59, 0.15)",
+                boxShadow: activeSlide === idx ? `0 0 12px ${dot.color}` : "none"
+              }}
               onClick={() => scrollToSlide(idx)}
-              title={slideTitles[idx]}
+              title={dot.label}
             />
           ))}
         </div>
@@ -195,7 +207,7 @@ export default function Home() {
                   className="calligraphy-title responsive-names"
                   style={{
                     fontSize: "36px",
-                    color: "var(--white)",
+                    color: "var(--text-light)",
                     margin: "5px 0",
                     lineHeight: "1.2",
                   }}
@@ -302,7 +314,7 @@ export default function Home() {
                   <div className="details-text-container">
                     <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>التاريخ واليوم</span>
                     <span style={{ fontSize: "15px", fontWeight: "700" }}>الثلاثاء، 1 سبتمبر 2026</span>
-                    <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)" }}>الأول من سبتمبر</span>
+                    <span style={{ fontSize: "11px", color: "rgba(44, 37, 59, 0.45)" }}>الأول من سبتمبر</span>
                   </div>
                 </div>
 
@@ -327,7 +339,7 @@ export default function Home() {
                   <div className="details-text-container">
                     <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>توقيت المراسم</span>
                     <span style={{ fontSize: "15px", fontWeight: "700" }}>الساعة 6:00 مساءً</span>
-                    <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.4)" }}>مراسم الاستقبال والمباركة</span>
+                    <span style={{ fontSize: "11px", color: "rgba(44, 37, 59, 0.45)" }}>مراسم الاستقبال والمباركة</span>
                   </div>
                 </div>
 
@@ -439,7 +451,7 @@ export default function Home() {
                 style={{
                   marginTop: "25px",
                   padding: "10px 20px",
-                  background: "rgba(255, 255, 255, 0.04)",
+                  background: "rgba(121, 101, 184, 0.05)",
                   border: "1px solid var(--border-glass)",
                   borderRadius: "24px",
                   cursor: "pointer",
@@ -515,14 +527,14 @@ export default function Home() {
               <div style={{ textAlign: "center", marginTop: "25px", width: "100%" }}>
                 <p
                   className="calligraphy-title"
-                  style={{ fontSize: "19px", color: "var(--accent-gold-light)", fontStyle: "italic" }}
+                  style={{ fontSize: "19px", color: "var(--accent-gold)", fontStyle: "italic" }}
                 >
                   دامت دياركم عامرة بالأفراح والمسرات 🌸
                 </p>
                 <p
                   style={{
                     fontSize: "10px",
-                    color: "rgba(255,255,255,0.35)",
+                    color: "rgba(44, 37, 59, 0.45)",
                     marginTop: "8px",
                     letterSpacing: "1px",
                   }}

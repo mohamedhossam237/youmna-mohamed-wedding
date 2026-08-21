@@ -56,10 +56,10 @@ export default function Envelope({ isOpened, onStartOpen, onCompleteOpen }) {
             style={{
               fontSize: "12px",
               fontWeight: "600",
-              color: "var(--accent-gold-light)",
+              color: "var(--accent-gold)",
               letterSpacing: "2px",
               marginBottom: "8px",
-              textShadow: "0 0 10px rgba(229, 193, 107, 0.2)",
+              textShadow: "0 0 5px rgba(229, 193, 107, 0.15)",
             }}
           >
             بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
@@ -70,7 +70,7 @@ export default function Envelope({ isOpened, onStartOpen, onCompleteOpen }) {
               fontSize: "34px",
               fontWeight: "700",
               lineHeight: "1.3",
-              textShadow: "0 0 20px rgba(229, 193, 107, 0.25)",
+              textShadow: "0 0 10px rgba(229, 193, 107, 0.15)",
             }}
           >
             دعوة لحضور عقد القران المبارك
@@ -84,8 +84,8 @@ export default function Envelope({ isOpened, onStartOpen, onCompleteOpen }) {
           <div
             style={{
               display: "inline-block",
-              background: "rgba(255, 255, 255, 0.03)",
-              border: "1px solid rgba(255, 255, 255, 0.08)",
+              background: "rgba(255, 255, 255, 0.65)",
+              border: "1px solid var(--border-glass)",
               borderRadius: "20px",
               padding: "6px 22px",
               boxShadow: "var(--shadow-dark)",
@@ -133,6 +133,12 @@ export default function Envelope({ isOpened, onStartOpen, onCompleteOpen }) {
 
           {/* Inner card sliding up */}
           <div className="envelope-card-3d">
+            {/* Elegant minimalist gold crest */}
+            <svg width="40" height="24" viewBox="0 0 40 24" fill="none" style={{ marginBottom: "8px" }}>
+              <path d="M20 2 C16 6, 6 10, 2 20 M20 2 C24 6, 34 10, 38 20" stroke="var(--accent-gold)" strokeWidth="1.2" strokeLinecap="round"/>
+              <path d="M20 6 C17 9, 10 12, 8 18 M20 6 C23 9, 30 12, 32 18" stroke="var(--accent-gold)" strokeWidth="0.8" strokeLinecap="round" opacity="0.7"/>
+              <circle cx="20" cy="2" r="1.5" fill="var(--accent-gold)"/>
+            </svg>
             <span
               style={{
                 fontSize: "12px",
@@ -168,6 +174,37 @@ export default function Envelope({ isOpened, onStartOpen, onCompleteOpen }) {
               </p>
             )}
           </div>
+
+          {/* Foliage & Ribbon backing underneath the wax seal */}
+          {!isOpenClicked && (
+            <>
+              {/* Ribbon hanging out */}
+              <div className="seal-ribbons">
+                <div className="ribbon-left" />
+                <div className="ribbon-right" />
+              </div>
+              
+              {/* Foliage sprigs sticking out */}
+              <div className="seal-foliage">
+                {/* Left olive branch */}
+                <svg className="foliage-left" width="90" height="50" viewBox="0 0 100 50" fill="none">
+                  <path d="M100 25 C70 25, 45 15, 10 10 M100 25 C80 20, 60 10, 40 5" stroke="var(--palette-sage)" strokeWidth="2.5" strokeLinecap="round"/>
+                  <path d="M25 12 C20 6, 12 10, 16 16 C20 22, 28 18, 25 12 Z" fill="var(--palette-sage)" opacity="0.95"/>
+                  <path d="M50 14 C45 6, 35 8, 38 15 C41 22, 50 18, 50 14 Z" fill="var(--palette-sage)" opacity="0.95"/>
+                  <path d="M72 18 C67 10, 58 12, 60 19 C62 26, 72 22, 72 18 Z" fill="var(--palette-sage)" opacity="0.95"/>
+                  <path d="M8 8 C3 2, -3 6, 1 12 C5 18, 12 14, 8 8 Z" fill="var(--palette-sage)" opacity="0.95"/>
+                </svg>
+                {/* Right olive branch */}
+                <svg className="foliage-right" width="90" height="50" viewBox="0 0 100 50" fill="none">
+                  <path d="M100 25 C70 25, 45 15, 10 10 M100 25 C80 20, 60 10, 40 5" stroke="var(--palette-sage)" strokeWidth="2.5" strokeLinecap="round"/>
+                  <path d="M25 12 C20 6, 12 10, 16 16 C20 22, 28 18, 25 12 Z" fill="var(--palette-sage)" opacity="0.95"/>
+                  <path d="M50 14 C45 6, 35 8, 38 15 C41 22, 50 18, 50 14 Z" fill="var(--palette-sage)" opacity="0.95"/>
+                  <path d="M72 18 C67 10, 58 12, 60 19 C62 26, 72 22, 72 18 Z" fill="var(--palette-sage)" opacity="0.95"/>
+                  <path d="M8 8 C3 2, -3 6, 1 12 C5 18, 12 14, 8 8 Z" fill="var(--palette-sage)" opacity="0.95"/>
+                </svg>
+              </div>
+            </>
+          )}
 
           {/* Gold Wax Seal stamp */}
           <div className="wax-seal-3d" onClick={handleOpen}>

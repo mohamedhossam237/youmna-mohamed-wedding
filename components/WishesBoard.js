@@ -53,6 +53,7 @@ export default function WishesBoard({ newWish }) {
     { border: "var(--palette-sage)", glow: "rgba(211,226,198,0.18)", icon: "🌿" },
     { border: "var(--palette-peach)", glow: "rgba(251,194,153,0.18)", icon: "🌸" },
     { border: "var(--palette-lavender)", glow: "rgba(198,181,232,0.18)", icon: "💜" },
+    { border: "var(--palette-yellow)", glow: "rgba(253,227,183,0.18)", icon: "🌻" },
   ];
 
   if (loading) {
