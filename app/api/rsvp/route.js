@@ -1,55 +1,35 @@
 import { NextResponse } from "next/server";
-import fs from "fs/promises";
-import path from "path";
+import client from "@/lib/mongodb";
 
-const dataFilePath = path.join(process.cwd(), "data", "rsvp.json");
+const DB_NAME = "wedding";
+const COLLECTION = "rsvps";
 
-// In-memory fallback array for stateless serverless environments like Vercel
-let memoryRsvps = [];
-
-// Ensure data folder and file exists helper
-async function ensureDataFile() {
-  try {
-    await fs.access(dataFilePath);
-  } catch (error) {
-    const dataDir = path.dirname(dataFilePath);
-    try {
-      await fs.mkdir(dataDir, { recursive: true });
-    } catch (mkdirError) {
-      // Folder may already exist
-    }
-    try {
-      await fs.writeFile(dataFilePath, "[]", "utf8");
-    } catch (writeError) {
-      console.warn("Could not create local data file (expected on read-only environments like Vercel):", writeError.message);
-    }
-  }
+async function getCollection() {
+  await client.connect();
+  return client.db(DB_NAME).collection(COLLECTION);
 }
 
 export async function GET() {
   try {
-    await ensureDataFile();
-    let rsvps = [];
-    try {
-      const data = await fs.readFile(dataFilePath, "utf8");
-      rsvps = JSON.parse(data);
-    } catch (readError) {
-      console.warn("Could not read local data file, falling back to memory:", readError.message);
-      rsvps = memoryRsvps;
-    }
-    
-    // Combine file RSVPs with memory RSVPs, removing duplicates
-    const combined = [...rsvps];
-    for (const mem of memoryRsvps) {
-      if (!combined.some(x => x.id === mem.id)) {
-        combined.unshift(mem);
-      }
-    }
-    
-    return NextResponse.json(combined);
+    const collection = await getCollection();
+    const rsvps = await collection
+      .find({})
+      .sort({ timestamp: -1 })
+      .toArray();
+
+    // Convert MongoDB _id (ObjectId) to string so it's JSON-serialisable
+    const serialised = rsvps.map(({ _id, ...rest }) => ({
+      id: _id.toString(),
+      ...rest,
+    }));
+
+    return NextResponse.json(serialised);
   } catch (error) {
-    console.error("Failed to read RSVP data:", error);
-    return NextResponse.json(memoryRsvps, { status: 200 });
+    console.error("GET /api/rsvp error:", error);
+    return NextResponse.json(
+      { error: "عذراً، تعذر تحميل البيانات. يرجى المحاولة مرة أخرى." },
+      { status: 500 }
+    );
   }
 }
 
@@ -66,7 +46,6 @@ export async function POST(request) {
     }
 
     const newRsvp = {
-      id: Date.now().toString(),
       name: name.trim(),
       attending: attending === undefined ? true : !!attending,
       guestsCount: attending ? Math.max(1, parseInt(guestsCount, 10) || 1) : 0,
@@ -74,28 +53,15 @@ export async function POST(request) {
       timestamp: new Date().toISOString(),
     };
 
-    // 1. Add to in-memory array fallback
-    memoryRsvps.unshift(newRsvp);
+    const collection = await getCollection();
+    const result = await collection.insertOne(newRsvp);
 
-    // 2. Attempt to write to local file system (works in local dev, fails gracefully on Vercel)
-    try {
-      await ensureDataFile();
-      let fileRsvps = [];
-      try {
-        const fileData = await fs.readFile(dataFilePath, "utf8");
-        fileRsvps = JSON.parse(fileData);
-      } catch (e) {
-        fileRsvps = [];
-      }
-      fileRsvps.unshift(newRsvp);
-      await fs.writeFile(dataFilePath, JSON.stringify(fileRsvps, null, 2), "utf8");
-    } catch (writeError) {
-      console.warn("File system write skipped (Vercel serverless environment):", writeError.message);
-    }
-
-    return NextResponse.json({ success: true, data: newRsvp });
+    return NextResponse.json({
+      success: true,
+      data: { id: result.insertedId.toString(), ...newRsvp },
+    });
   } catch (error) {
-    console.error("RSVP POST Error:", error);
+    console.error("POST /api/rsvp error:", error);
     return NextResponse.json(
       { error: "عذراً، حدث خطأ أثناء حفظ دعوتك. يرجى المحاولة مرة أخرى." },
       { status: 500 }
