@@ -27,21 +27,33 @@ export default function Home() {
     setPhotoTilt({ x: 0, y: 0 });
   };
 
-  // Fetch existing wishes from the API
-  useEffect(() => {
-    async function fetchWishes() {
-      try {
-        const res = await fetch("/api/rsvp");
-        if (res.ok) {
-          const data = await res.json();
-          setWishes(data);
-        }
-      } catch (err) {
-        console.error("Error fetching wishes:", err);
+  // Fetch wishes from MongoDB — re-run on mount, when envelope opens, and when slide 3 becomes active
+  const fetchWishes = React.useCallback(async () => {
+    try {
+      const res = await fetch("/api/rsvp", { cache: "no-store" });
+      if (res.ok) {
+        const data = await res.json();
+        setWishes(data);
       }
+    } catch (err) {
+      console.error("Error fetching wishes:", err);
     }
-    fetchWishes();
   }, []);
+
+  // Fetch on initial mount
+  useEffect(() => {
+    fetchWishes();
+  }, [fetchWishes]);
+
+  // Re-fetch every time the envelope opens
+  useEffect(() => {
+    if (isOpened) fetchWishes();
+  }, [isOpened, fetchWishes]);
+
+  // Re-fetch when the user scrolls to slide 3 (wishes board)
+  useEffect(() => {
+    if (activeSlide === 2) fetchWishes();
+  }, [activeSlide, fetchWishes]);
 
   const openEnvelope = () => {
     setIsOpened(true);
