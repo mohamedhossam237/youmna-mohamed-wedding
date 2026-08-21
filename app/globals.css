@@ -1464,3 +1464,168 @@ html, body {
     transform: translateY(0);
   }
 }
+
+/* ===================================================
+   ANIMATED HIDDEN GOLDEN CALLIGRAPHY BACKGROUND
+   =================================================== */
+.golden-watermark-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.golden-calligraphy-item {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform, opacity;
+}
+
+.golden-watermark-text {
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  background: linear-gradient(135deg, rgba(253, 242, 204, 0.22) 0%, rgba(229, 193, 107, 0.14) 50%, rgba(184, 145, 48, 0.08) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgba(229, 193, 107, 0.12);
+  filter: drop-shadow(0 0 20px rgba(229, 193, 107, 0.08));
+  display: inline-block;
+  letter-spacing: 2px;
+}
+
+.font-ruqaa {
+  font-family: var(--font-ruqaa), serif;
+}
+
+.font-amiri {
+  font-family: var(--font-amiri), serif;
+}
+
+.giant-text {
+  font-size: clamp(65px, 12vw, 130px);
+  letter-spacing: 4px;
+  -webkit-text-stroke: 1.5px rgba(229, 193, 107, 0.14);
+}
+
+.letter-monogram {
+  font-family: var(--font-playfair), serif;
+  font-size: clamp(40px, 8vw, 85px);
+  font-style: italic;
+  letter-spacing: 6px;
+  -webkit-text-stroke: 1px rgba(229, 193, 107, 0.18);
+}
+
+/* Floating positions and slow ethereal drift animations */
+.float-item-1 {
+  top: 8%;
+  right: -5%;
+  font-size: clamp(38px, 6vw, 65px);
+  transform: rotate(-10deg);
+  animation: floatDrift1 28s infinite ease-in-out alternate;
+}
+
+.float-item-2 {
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-6deg);
+  animation: pulseRotateCenter 35s infinite ease-in-out alternate;
+}
+
+.float-item-3 {
+  bottom: 12%;
+  left: -2%;
+  font-size: clamp(34px, 5.5vw, 58px);
+  transform: rotate(8deg);
+  animation: floatDrift2 32s infinite ease-in-out alternate;
+}
+
+.float-item-4 {
+  top: 25%;
+  left: 8%;
+  opacity: 0.7;
+  animation: spinSlowOrnament 60s linear infinite;
+}
+
+.float-item-5 {
+  bottom: 22%;
+  right: 10%;
+  animation: floatDrift3 24s infinite ease-in-out alternate;
+}
+
+@keyframes floatDrift1 {
+  0% {
+    transform: rotate(-10deg) translate(0, 0) scale(0.95);
+    opacity: 0.65;
+  }
+  50% {
+    transform: rotate(-7deg) translate(-25px, 20px) scale(1.05);
+    opacity: 0.95;
+  }
+  100% {
+    transform: rotate(-12deg) translate(-45px, 40px) scale(1);
+    opacity: 0.75;
+  }
+}
+
+@keyframes floatDrift2 {
+  0% {
+    transform: rotate(8deg) translate(0, 0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: rotate(12deg) translate(30px, -25px) scale(1.08);
+    opacity: 0.9;
+  }
+  100% {
+    transform: rotate(6deg) translate(50px, -45px) scale(0.95);
+    opacity: 0.7;
+  }
+}
+
+@keyframes floatDrift3 {
+  0% {
+    transform: translate(0, 0) scale(0.9);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-20px, -25px) scale(1.05);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(15px, -40px) scale(0.95);
+    opacity: 0.6;
+  }
+}
+
+@keyframes pulseRotateCenter {
+  0% {
+    transform: translate(-50%, -50%) rotate(-6deg) scale(0.92);
+    opacity: 0.55;
+    filter: drop-shadow(0 0 15px rgba(229, 193, 107, 0.05));
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(-3deg) scale(1.06);
+    opacity: 0.9;
+    filter: drop-shadow(0 0 35px rgba(229, 193, 107, 0.18));
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(-8deg) scale(0.98);
+    opacity: 0.65;
+    filter: drop-shadow(0 0 20px rgba(229, 193, 107, 0.08));
+  }
+}
+
+@keyframes spinSlowOrnament {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -7,6 +7,7 @@ import Envelope from "@/components/Envelope";
 import Countdown from "@/components/Countdown";
 import RSVPForm from "@/components/RSVPForm";
 import WishesBoard from "@/components/WishesBoard";
+import GoldenNamesBackground from "@/components/GoldenNamesBackground";
 
 export default function Home() {
   const [isOpened, setIsOpened] = useState(false);
@@ -81,7 +82,10 @@ export default function Home() {
         <div className="aurora-blob blob-4" />
       </div>
 
-      {/* 2. Falling Petals Background Animation */}
+      {/* 2. Hidden Animated Golden Names Calligraphy */}
+      <GoldenNamesBackground />
+
+      {/* 3. Falling Petals Background Animation */}
       <PetalsCanvas />
 
       {/* 3. Sealed 3D Envelope Opening Screen */}
