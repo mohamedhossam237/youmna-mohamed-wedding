@@ -35,6 +35,10 @@ export default function Home() {
   const handleNewRsvp = (rsvp) => {
     // Pass the new wish to WishesBoard so it shows instantly
     setNewWish(rsvp);
+    // Smoothly transition to Slide 4 (Wishes Board) so they can see their wish live!
+    setTimeout(() => {
+      scrollToSlide(3);
+    }, 1200);
   };
 
   // Scroll tracking to update pagination dot status
@@ -60,6 +64,13 @@ export default function Home() {
     }
   };
 
+  const slideTitles = [
+    "الرئيسية والعد التنازلي",
+    "تفاصيل وموعد الحفل",
+    "تأكيد الحضور والتهنئة",
+    "سجل التهاني والمباركات",
+  ];
+
   return (
     <main style={{ minHeight: "100vh", position: "relative", backgroundColor: "var(--bg-dark)" }}>
       {/* 1. Shifting Pastel Aura Background */}
@@ -83,15 +94,15 @@ export default function Home() {
       {/* 4. Floating Music Player */}
       <MusicPlayer isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
 
-      {/* 5. Navigation Dots (3 slides total) */}
+      {/* 5. Navigation Dots (4 slides total) */}
       {isOpened && (
         <div className="pagination-dots">
-          {[0, 1, 2].map((idx) => (
+          {[0, 1, 2, 3].map((idx) => (
             <div
               key={idx}
               className={`pagination-dot ${activeSlide === idx ? "active" : ""}`}
               onClick={() => scrollToSlide(idx)}
-              title={`الشريحة ${idx + 1}`}
+              title={slideTitles[idx]}
             />
           ))}
         </div>
@@ -115,7 +126,7 @@ export default function Home() {
                   <path d="M10 80C40 80 70 60 80 30C82 20 70 10 60 20C50 30 60 50 80 50C90 50 100 40 100 30" stroke="var(--accent-gold)" strokeWidth="2.5" strokeLinecap="round" />
                 </svg>
 
-                {/* Arched couple photo (Wider & Animated Better) */}
+                {/* Arched couple photo */}
                 <div style={{ animation: "floatCard 6s infinite ease-in-out", zIndex: 5 }}>
                   <div
                     className="arch-frame-container"
@@ -187,7 +198,7 @@ export default function Home() {
                     lineHeight: "1.2",
                   }}
                 >
-                  محمد هاشم
+                  <span className="shimmer-gold-text">محمد هاشم</span>
                   <div style={{ display: "inline-flex", margin: "0 12px", verticalAlign: "middle" }}>
                     <svg
                       width="36"
@@ -207,7 +218,7 @@ export default function Home() {
                       </defs>
                     </svg>
                   </div>
-                  يمنى محمود
+                  <span className="shimmer-gold-text">يمنى محمود</span>
                 </h1>
 
                 <p
@@ -247,10 +258,9 @@ export default function Home() {
           <section className="slide-section">
             <div className="glass-slide-card">
               <h2
-                className="calligraphy-title"
+                className="calligraphy-title shimmer-gold-text"
                 style={{
                   fontSize: "30px",
-                  color: "var(--accent-gold)",
                   marginBottom: "5px",
                 }}
               >
@@ -395,14 +405,13 @@ export default function Home() {
             </div>
           </section>
 
-          {/* SLIDE 3: RSVP Form and Congratulatory Guestbook */}
+          {/* SLIDE 3: RSVP Form */}
           <section className="slide-section">
             <div className="glass-slide-card">
               <h2
-                className="calligraphy-title"
+                className="calligraphy-title shimmer-gold-text"
                 style={{
                   fontSize: "30px",
-                  color: "var(--accent-gold)",
                   marginBottom: "5px",
                 }}
               >
@@ -416,46 +425,101 @@ export default function Home() {
                 <span>✿</span>
               </div>
 
-              <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "30px" }}>
-                {/* RSVP Form Section */}
-                <div style={{ width: "100%" }}>
-                  <RSVPForm onRsvpSuccess={handleNewRsvp} />
-                </div>
+              <div style={{ width: "100%" }}>
+                <RSVPForm onRsvpSuccess={handleNewRsvp} />
+              </div>
 
-                <div className="divider-ornament" style={{ margin: "5px 0" }}>
-                  <span>✿</span>
-                </div>
+              {/* Quick Jump to Wishes Slide */}
+              <div
+                onClick={() => scrollToSlide(3)}
+                style={{
+                  marginTop: "25px",
+                  padding: "10px 20px",
+                  background: "rgba(255, 255, 255, 0.04)",
+                  border: "1px solid var(--border-glass)",
+                  borderRadius: "24px",
+                  cursor: "pointer",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  transition: "all 0.3s ease",
+                }}
+                className="hover-lift"
+              >
+                <span style={{ fontSize: "13px", color: "var(--accent-gold)", fontWeight: "700" }}>
+                  💌 مشاهدة جميع تهاني وتبريكات الأحباب ⬇
+                </span>
+              </div>
+            </div>
+          </section>
 
-                {/* Wishes Guestbook Board Section */}
-                <div style={{ width: "100%" }}>
-                  <h3
-                    className="calligraphy-title"
-                    style={{
-                      fontSize: "22px",
-                      color: "var(--white)",
-                      textAlign: "center",
-                      marginBottom: "12px",
-                    }}
-                  >
-                    كلمات تفيض بالحب والتهاني
-                  </h3>
-                  <WishesBoard newWish={newWish} />
-                </div>
+          {/* SLIDE 4: Dedicated Wishes & Guestbook Board */}
+          <section className="slide-section">
+            <div className="glass-slide-card" style={{ maxWidth: "680px" }}>
+              <div style={{ textAlign: "center", marginBottom: "15px" }}>
+                <span
+                  style={{
+                    fontSize: "11px",
+                    fontWeight: "800",
+                    color: "var(--accent-gold)",
+                    letterSpacing: "1.5px",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  دفتر المحبة والذكريات
+                </span>
+                <h2
+                  className="calligraphy-title shimmer-gold-text"
+                  style={{
+                    fontSize: "32px",
+                    margin: "4px 0",
+                  }}
+                >
+                  سجل التهاني والمباركات
+                </h2>
+                <p style={{ fontSize: "13px", color: "var(--text-muted)" }}>
+                  كلمات تفيض بالحب والفرحة من الأهل والأصدقاء للعروسين
+                </p>
+              </div>
+
+              <div className="divider-ornament" style={{ margin: "0 auto 15px auto", width: "120px" }}>
+                <span>✿</span>
+              </div>
+
+              {/* The Modern Wishes Board */}
+              <WishesBoard newWish={newWish} />
+
+              {/* Action Button: Add a wish */}
+              <div style={{ marginTop: "20px", display: "flex", justifyContent: "center", gap: "12px", width: "100%" }}>
+                <button
+                  type="button"
+                  onClick={() => scrollToSlide(2)}
+                  className="btn-gold"
+                  style={{
+                    padding: "8px 22px",
+                    fontSize: "13px",
+                    borderRadius: "25px",
+                    fontWeight: "700",
+                    cursor: "pointer",
+                  }}
+                >
+                  ✍️ أضف تهنئتك للعروسين
+                </button>
               </div>
 
               {/* Footer Sign-off */}
-              <div style={{ textAlign: "center", marginTop: "35px", width: "100%" }}>
+              <div style={{ textAlign: "center", marginTop: "25px", width: "100%" }}>
                 <p
                   className="calligraphy-title"
-                  style={{ fontSize: "20px", color: "var(--accent-gold-light)", fontStyle: "italic" }}
+                  style={{ fontSize: "19px", color: "var(--accent-gold-light)", fontStyle: "italic" }}
                 >
                   دامت دياركم عامرة بالأفراح والمسرات 🌸
                 </p>
                 <p
                   style={{
                     fontSize: "10px",
-                    color: "rgba(255,255,255,0.3)",
-                    marginTop: "10px",
+                    color: "rgba(255,255,255,0.35)",
+                    marginTop: "8px",
                     letterSpacing: "1px",
                   }}
                 >

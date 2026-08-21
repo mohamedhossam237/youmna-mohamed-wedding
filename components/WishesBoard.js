@@ -1,9 +1,10 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 export default function WishesBoard({ newWish }) {
   const [wishes, setWishes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const tickerRef = useRef(null);
 
   // Fetch all wishes from MongoDB when the board mounts
   useEffect(() => {
@@ -13,7 +14,7 @@ export default function WishesBoard({ newWish }) {
         const res = await fetch("/api/rsvp", { cache: "no-store" });
         if (res.ok) {
           const data = await res.json();
-          setWishes(data);
+          setWishes(data.filter((w) => w.message && w.message.trim() !== ""));
         }
       } catch (err) {
         console.error("Error fetching wishes:", err);
@@ -22,13 +23,12 @@ export default function WishesBoard({ newWish }) {
       }
     }
     fetchWishes();
-  }, []); // Runs once when this component mounts (i.e. when slide 3 is visible)
+  }, []);
 
-  // When a new wish is submitted, prepend it instantly without re-fetching
+  // Prepend instantly when a new wish is submitted
   useEffect(() => {
-    if (newWish) {
+    if (newWish && newWish.message && newWish.message.trim() !== "") {
       setWishes((prev) => {
-        // Avoid duplicates if already in list
         if (prev.some((w) => w.id === newWish.id)) return prev;
         return [newWish, ...prev];
       });
@@ -37,60 +37,92 @@ export default function WishesBoard({ newWish }) {
 
   const formatDate = (dateString) => {
     try {
-      const date = new Date(dateString);
-      return date.toLocaleDateString("ar-EG", {
+      return new Date(dateString).toLocaleDateString("ar-EG", {
         day: "numeric",
         month: "long",
         year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
       });
-    } catch (e) {
+    } catch {
       return dateString;
     }
   };
 
-  const filteredWishes = wishes.filter((w) => w.message && w.message.trim() !== "");
+  const accentColors = [
+    { border: "var(--palette-pink)", glow: "rgba(250,208,224,0.18)", icon: "💌" },
+    { border: "var(--palette-blue)", glow: "rgba(198,220,253,0.18)", icon: "✨" },
+    { border: "var(--palette-sage)", glow: "rgba(211,226,198,0.18)", icon: "🌿" },
+    { border: "var(--palette-peach)", glow: "rgba(251,194,153,0.18)", icon: "🌸" },
+    { border: "var(--palette-lavender)", glow: "rgba(198,181,232,0.18)", icon: "💜" },
+  ];
 
   if (loading) {
     return (
-      <div className="no-wishes">
-        <p style={{ color: "var(--accent-gold)", animation: "pulse 1.5s infinite" }}>
-          ✨ جاري تحميل التهاني...
-        </p>
+      <div className="wb-loading-state">
+        <div className="wb-loading-dots">
+          <span /><span /><span />
+        </div>
+        <p>جاري تحميل كلمات المحبة...</p>
       </div>
     );
   }
 
-  if (filteredWishes.length === 0) {
+  if (wishes.length === 0) {
     return (
-      <div className="no-wishes">
-        <p>لا توجد تهاني مسجلة بعد.</p>
-        <p style={{ fontSize: "12px", marginTop: "5px", color: "var(--text-muted)" }}>
-          كن أول من يكتب تهنئة مباركة للعروسين بالنموذج أعلاه! ✨
-        </p>
+      <div className="wb-empty-state">
+        <div className="wb-empty-icon">💌</div>
+        <p className="wb-empty-title">كن أول من يكتب تهنئة</p>
+        <p className="wb-empty-sub">شاركنا كلمة طيبة تسعد بها قلوب العروسين ✨</p>
       </div>
     );
   }
 
   return (
-    <div className="wishes-board">
-      {filteredWishes.map((wish, index) => {
-        const colorClass = `card-${index % 5}`;
-        return (
-          <div key={wish.id || index} className={`wish-card ${colorClass}`}>
-            <div className="wish-header">
-              <span className="wish-name">{wish.name}</span>
-              <span className={`wish-badge ${wish.attending ? "attending" : "declined"}`}>
-                {wish.attending ? "حاضر بكل سرور 🌸" : "معتذر بأسف ✉️"}
-              </span>
+    <div className="wb-wrapper">
+      {/* Floating count badge */}
+      <div className="wb-count-badge">
+        <span className="wb-count-num">{wishes.length}</span>
+        <span className="wb-count-label">تهنئة مباركة</span>
+      </div>
+
+      {/* Cards Grid */}
+      <div className="wb-cards-grid" ref={tickerRef}>
+        {wishes.map((wish, i) => {
+          const accent = accentColors[i % accentColors.length];
+          return (
+            <div
+              key={wish.id || i}
+              className="wb-card"
+              style={{
+                "--accent-border": accent.border,
+                "--accent-glow": accent.glow,
+                animationDelay: `${i * 0.08}s`,
+              }}
+            >
+              {/* Top quote mark */}
+              <span className="wb-quote-mark">"</span>
+
+              {/* Message */}
+              <p className="wb-message">{wish.message}</p>
+
+              {/* Footer */}
+              <div className="wb-footer">
+                <div className="wb-author">
+                  <div className="wb-avatar" style={{ background: accent.glow, borderColor: accent.border }}>
+                    {wish.name.charAt(0)}
+                  </div>
+                  <div className="wb-author-info">
+                    <span className="wb-author-name">{wish.name}</span>
+                    <span className="wb-author-date">{formatDate(wish.timestamp)}</span>
+                  </div>
+                </div>
+                <span className={`wb-status-badge ${wish.attending ? "wb-attending" : "wb-declined"}`}>
+                  {wish.attending ? "🌸 حاضر" : "✉️ معتذر"}
+                </span>
+              </div>
             </div>
-            <p className="wish-message">{wish.message}</p>
-            <div className="wish-date">{formatDate(wish.timestamp)}</div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }
