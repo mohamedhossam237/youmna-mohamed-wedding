@@ -1918,3 +1918,47 @@ html, body {
   opacity: 0.08;
   animation: floatDrift2 24s infinite ease-in-out alternate;
 }
+
+/* Dress Code Section styles */
+.dress-code-container {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 12px 0 6px 0;
+  width: 100%;
+}
+
+.dress-code-circle {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(44, 37, 59, 0.4);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  transition: var(--transition-smooth);
+  cursor: pointer;
+  padding: 5px;
+  line-height: 1.2;
+}
+
+.dress-code-circle:hover {
+  transform: scale(1.1) translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  border-color: rgba(255, 255, 255, 0.95);
+}
+
+@media (max-width: 480px) {
+  .dress-code-circle {
+    width: 55px;
+    height: 55px;
+    font-size: 8.5px;
+  }
+}

@@ -382,6 +382,38 @@ export default function Home() {
                 </div>
               </div>
 
+              {/* DRESS CODE SECTION */}
+              <div style={{ width: "100%", marginTop: "20px", textAlign: "center" }}>
+                <span
+                  style={{
+                    fontSize: "11px",
+                    fontWeight: "800",
+                    color: "var(--accent-gold)",
+                    letterSpacing: "1.5px",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  الدريس كود المقترح
+                </span>
+                <h3 className="calligraphy-title" style={{ fontSize: "16px", color: "var(--text-light)", margin: "2px 0 6px 0" }}>
+                  الألوان المقترحة لملابس الحضور 🌸
+                </h3>
+                <div className="dress-code-container">
+                  {[
+                    { name: "Blush Pink", color: "var(--palette-pink)" },
+                    { name: "Soft Peach", color: "var(--palette-peach)" },
+                    { name: "Butter Yellow", color: "var(--palette-yellow)" },
+                    { name: "Lavender", color: "var(--palette-lavender)" },
+                    { name: "Sky Blue", color: "var(--palette-blue)" },
+                    { name: "Mind Cream", color: "var(--palette-sage)" }
+                  ].map((item, idx) => (
+                    <div key={idx} className="dress-code-circle" style={{ backgroundColor: item.color }} title={item.name}>
+                      <span>{item.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               {/* Interactive Google Maps Shortcut Embed */}
               <div
                 style={{
