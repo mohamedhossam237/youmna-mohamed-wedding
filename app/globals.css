@@ -426,13 +426,15 @@ html, body {
   align-items: center;
 }
 
-/* Envelope Folds: Real HTML Folds in Uniform Luxury Pink Gradient */
+/* Envelope Folds: Real HTML Folds in Uniform Luxury Pink Gradient with Gold Dust */
 .envelope-fold-left,
 .envelope-fold-right,
 .envelope-fold-bottom,
 .envelope-flap-3d {
   position: absolute;
-  background: linear-gradient(135deg, #fdf1f5 0%, #fad0e0 50%, #f9adc8 100%);
+  background: radial-gradient(rgba(229, 193, 107, 0.1) 1.2px, transparent 0),
+              linear-gradient(135deg, #fdf1f5 0%, #fad0e0 50%, #f9adc8 100%);
+  background-size: 24px 24px, 100% 100%;
   pointer-events: none;
 }
 

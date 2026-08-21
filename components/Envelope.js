@@ -124,32 +124,77 @@ export default function Envelope({ isOpened, onStartOpen, onCompleteOpen }) {
               : "transform 0.1s ease-out",
           }}
         >
-          {/* Left Fold with Gold dashed border */}
+          {/* Left Fold with Gold dashed border and Corner Vines */}
           <div className="envelope-fold-left">
             <svg width="100%" height="100%" viewBox="0 0 100 200" preserveAspectRatio="none" style={{ position: "absolute", top: 0, left: 0, pointerEvents: "none" }}>
-              <polyline points="1,1 98,100 1,199" fill="none" stroke="var(--accent-gold)" strokeWidth="1.5" strokeDasharray="3 3" />
+              <polyline points="1,1 98,100 1,199" fill="none" stroke="var(--accent-gold)" strokeWidth="1.2" strokeDasharray="3 3" />
+              
+              {/* Left corner leaf detail */}
+              <g transform="translate(6, 6) scale(0.35)" stroke="var(--accent-gold)" strokeWidth="1.5" fill="none">
+                <path d="M0 0 C15 5, 25 15, 30 30" />
+                <path d="M0 0 C5 15, 15 25, 30 30" />
+                <circle cx="15" cy="15" r="2.5" fill="var(--accent-gold)" />
+              </g>
+              <g transform="translate(6, 194) scale(0.35) scaleY(-1)" stroke="var(--accent-gold)" strokeWidth="1.5" fill="none">
+                <path d="M0 0 C15 5, 25 15, 30 30" />
+                <path d="M0 0 C5 15, 15 25, 30 30" />
+                <circle cx="15" cy="15" r="2.5" fill="var(--accent-gold)" />
+              </g>
             </svg>
           </div>
 
-          {/* Right Fold with Gold dashed border */}
+          {/* Right Fold with Gold dashed border and Corner Vines */}
           <div className="envelope-fold-right">
             <svg width="100%" height="100%" viewBox="0 0 100 200" preserveAspectRatio="none" style={{ position: "absolute", top: 0, left: 0, pointerEvents: "none" }}>
-              <polyline points="99,1 2,100 99,199" fill="none" stroke="var(--accent-gold)" strokeWidth="1.5" strokeDasharray="3 3" />
+              <polyline points="99,1 2,100 99,199" fill="none" stroke="var(--accent-gold)" strokeWidth="1.2" strokeDasharray="3 3" />
+              
+              {/* Right corner leaf detail */}
+              <g transform="translate(94, 6) scale(0.35) scaleX(-1)" stroke="var(--accent-gold)" strokeWidth="1.5" fill="none">
+                <path d="M0 0 C15 5, 25 15, 30 30" />
+                <path d="M0 0 C5 15, 15 25, 30 30" />
+                <circle cx="15" cy="15" r="2.5" fill="var(--accent-gold)" />
+              </g>
+              <g transform="translate(94, 194) scale(0.35) scaleX(-1) scaleY(-1)" stroke="var(--accent-gold)" strokeWidth="1.5" fill="none">
+                <path d="M0 0 C15 5, 25 15, 30 30" />
+                <path d="M0 0 C5 15, 15 25, 30 30" />
+                <circle cx="15" cy="15" r="2.5" fill="var(--accent-gold)" />
+              </g>
             </svg>
           </div>
 
-          {/* Bottom Fold with Gold dashed border */}
+          {/* Bottom Fold with Gold dashed border and Filigree */}
           <div className="envelope-fold-bottom">
             <svg width="100%" height="100%" viewBox="0 0 200 100" preserveAspectRatio="none" style={{ position: "absolute", top: 0, left: 0, pointerEvents: "none" }}>
-              <polyline points="2,98 100,2 198,98" fill="none" stroke="var(--accent-gold)" strokeWidth="1.5" strokeDasharray="3 3" />
+              <polyline points="2,98 100,2 198,98" fill="none" stroke="var(--accent-gold)" strokeWidth="1.2" strokeDasharray="3 3" />
+              
+              {/* Bottom corner detail */}
+              <g transform="translate(10, 90) scale(0.35)" stroke="var(--accent-gold)" strokeWidth="1.5" fill="none">
+                <path d="M0 0 C15 -5, 25 -15, 30 -30" />
+                <circle cx="15" cy="-15" r="2.5" fill="var(--accent-gold)" />
+              </g>
+              <g transform="translate(190, 90) scale(0.35) scaleX(-1)" stroke="var(--accent-gold)" strokeWidth="1.5" fill="none">
+                <path d="M0 0 C15 -5, 25 -15, 30 -30" />
+                <circle cx="15" cy="-15" r="2.5" fill="var(--accent-gold)" />
+              </g>
             </svg>
           </div>
 
-          {/* Top flap folding open with Gold dashed border */}
+          {/* Top flap folding open with Gold dashed border and Leaf Crest */}
           <div className="envelope-flap-3d">
             <svg width="100%" height="100%" viewBox="0 0 200 100" preserveAspectRatio="none" style={{ position: "absolute", top: 0, left: 0, pointerEvents: "none" }}>
-              <polyline points="2,2 100,98 198,2" fill="none" stroke="var(--accent-gold)" strokeWidth="1.5" strokeDasharray="3 3" />
+              <polyline points="2,2 100,98 198,2" fill="none" stroke="var(--accent-gold)" strokeWidth="1.2" strokeDasharray="3 3" />
               <polyline points="5,2 100,93 195,2" fill="none" stroke="var(--accent-gold-light)" strokeWidth="0.8" />
+              
+              {/* Central gold ornament pointing up from the flap tip */}
+              <g transform="translate(100, 76) scale(0.55)">
+                <path d="M0 25 C-10 15, -15 5, 0 -15 C15 5, 10 15, 0 25 Z" fill="var(--accent-gold)" opacity="0.25"/>
+                <path d="M0 25 C-5 18, -8 10, 0 0 C8 10, 5 18, 0 25 Z" fill="var(--accent-gold)" opacity="0.85"/>
+                <circle cx="0" cy="-20" r="2.5" fill="var(--accent-gold)"/>
+                {/* Left leaf sprig */}
+                <path d="M0 15 Q-12 10 -20 -2 Q-8 -2 0 15" fill="var(--accent-gold)" opacity="0.75"/>
+                {/* Right leaf sprig */}
+                <path d="M0 15 Q12 10 20 -2 Q8 -2 0 15" fill="var(--accent-gold)" opacity="0.75"/>
+              </g>
             </svg>
           </div>
 
